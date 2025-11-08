@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4sbfufuv43u1"]
+
+[ext_resource type="Script" uid="uid://4oerkiw2ugij" path="res://sell_box.gd" id="1_3064p"]
+[ext_resource type="Texture2D" uid="uid://cd4sl2l0kq4pg" path="res://box.png" id="2_wtrw3"]
+[ext_resource type="Texture2D" uid="uid://cnnld05fwpmf6" path="res://coin.png" id="3_h8dgi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_28aoi"]
+size = Vector2(16, 16)
+
+[node name="SellBox" type="Area2D"]
+collision_layer = 8
+collision_mask = 8
+script = ExtResource("1_3064p")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_wtrw3")
+
+[node name="Coin" type="Sprite2D" parent="Sprite"]
+texture = ExtResource("3_h8dgi")
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_28aoi")
+
+[node name="AudioPlayer" type="AudioStreamPlayer2D" parent="."]
+unique_name_in_owner = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

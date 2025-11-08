@@ -1,0 +1,151 @@
+[gd_scene load_steps=12 format=3 uid="uid://cuwhrp4t3bu7s"]
+
+[ext_resource type="Script" uid="uid://d1gluxjec07si" path="res://main.gd" id="1_jnlp7"]
+[ext_resource type="PackedScene" uid="uid://b4sbfufuv43u1" path="res://structures/sell_box.tscn" id="2_28aoi"]
+[ext_resource type="Texture2D" uid="uid://cnnld05fwpmf6" path="res://coin.png" id="3_vvh5c"]
+[ext_resource type="PackedScene" uid="uid://dh646mn4hjd10" path="res://growables/growable.tscn" id="4_28aoi"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_28aoi"]
+
+[sub_resource type="Gradient" id="Gradient_vho56"]
+colors = PackedColorArray(0.09411765, 0.09411765, 0.09411765, 1, 0.09411765, 0.09411765, 0.09411765, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pq8q7"]
+gradient = SubResource("Gradient_vho56")
+width = 320
+height = 180
+fill = 1
+fill_to = Vector2(0.5, 0.5)
+
+[sub_resource type="Curve" id="Curve_jnlp7"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_jnlp7"]
+offsets = PackedFloat32Array(0, 0.5217391, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_28aoi"]
+radius = 16.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_28aoi"]
+font_size = 8
+shadow_size = 0
+shadow_color = Color(1, 1, 1, 1)
+shadow_offset = Vector2(0, 0)
+
+[node name="Root" type="Node2D"]
+script = ExtResource("1_jnlp7")
+
+[node name="Ground" type="StaticBody2D" parent="."]
+
+[node name="Shape" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("WorldBoundaryShape2D_28aoi")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+
+[node name="Background" type="Sprite2D" parent="Camera2D"]
+texture = SubResource("GradientTexture2D_pq8q7")
+
+[node name="Structures" type="Node2D" parent="."]
+
+[node name="SellBox" parent="Structures" instance=ExtResource("2_28aoi")]
+position = Vector2(-104, -8)
+collision_layer = 0
+
+[node name="Growable" parent="." instance=ExtResource("4_28aoi")]
+position = Vector2(16, -7)
+growth_time = 0.5
+
+[node name="Growable5" parent="." instance=ExtResource("4_28aoi")]
+position = Vector2(-12, -7)
+growth_time = 0.5
+growth = 1.0
+
+[node name="Growable6" parent="." instance=ExtResource("4_28aoi")]
+position = Vector2(-23, -7)
+growth_time = 0.5
+growth = 1.0
+
+[node name="Growable2" parent="." instance=ExtResource("4_28aoi")]
+position = Vector2(52, -7)
+
+[node name="Growable4" parent="." instance=ExtResource("4_28aoi")]
+position = Vector2(63, -7)
+
+[node name="Growable3" parent="." instance=ExtResource("4_28aoi")]
+position = Vector2(97, -7)
+
+[node name="Trail" type="Line2D" parent="."]
+width = 3.0
+width_curve = SubResource("Curve_jnlp7")
+
+[node name="SlicingParticles" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+visible = false
+lifetime = 0.15000000000000002
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 12.0
+initial_velocity_max = 48.0
+angle_min = -720.0
+angle_max = 720.0
+color_ramp = SubResource("Gradient_jnlp7")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+collide_with_areas = true
+collide_with_bodies = false
+
+[node name="SuckingParticles" type="CPUParticles2D" parent="."]
+unique_name_in_owner = true
+amount = 12
+lifetime = 0.25
+local_coords = true
+emission_shape = 2
+emission_sphere_radius = 16.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 4.0
+initial_velocity_max = 12.0
+orbit_velocity_min = -4.0
+radial_accel_min = -250.0
+radial_accel_max = -200.0
+tangential_accel_min = 200.0
+tangential_accel_max = 300.0
+angle_min = -720.0
+angle_max = 720.0
+scale_amount_max = 2.0
+color_ramp = SubResource("Gradient_jnlp7")
+
+[node name="SuckingArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SuckingArea"]
+shape = SubResource("CircleShape2D_28aoi")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer"]
+offset_right = 32.0
+offset_bottom = 16.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 0
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("3_vvh5c")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "0.00"
+label_settings = SubResource("LabelSettings_28aoi")

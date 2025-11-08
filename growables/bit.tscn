@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b204702xw015e"]
+
+[ext_resource type="Texture2D" uid="uid://b5wedo5t45al6" path="res://growables/art/bit.png" id="1_7y18t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jnlp7"]
+size = Vector2(6, 6)
+
+[node name="Bit" type="RigidBody2D"]
+collision_layer = 8
+angular_damp = 10.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_7y18t")
+
+[node name="Shape" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jnlp7")
