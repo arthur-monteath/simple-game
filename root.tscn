@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://cuwhrp4t3bu7s"]
+[gd_scene load_steps=14 format=3 uid="uid://cuwhrp4t3bu7s"]
 
 [ext_resource type="Script" uid="uid://d1gluxjec07si" path="res://main.gd" id="1_jnlp7"]
 [ext_resource type="PackedScene" uid="uid://b4sbfufuv43u1" path="res://structures/sell_box.tscn" id="2_28aoi"]
 [ext_resource type="Texture2D" uid="uid://cnnld05fwpmf6" path="res://coin.png" id="3_vvh5c"]
 [ext_resource type="PackedScene" uid="uid://dh646mn4hjd10" path="res://growables/growable.tscn" id="4_28aoi"]
+[ext_resource type="PackedScene" uid="uid://cnccj0ngj642u" path="res://eater.tscn" id="5_jnlp7"]
+[ext_resource type="PackedScene" uid="uid://kj0h38f5mo1o" path="res://seed.tscn" id="6_l8v81"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_28aoi"]
 
@@ -38,6 +40,8 @@ shadow_offset = Vector2(0, 0)
 script = ExtResource("1_jnlp7")
 
 [node name="Ground" type="StaticBody2D" parent="."]
+collision_layer = 3
+collision_mask = 0
 
 [node name="Shape" type="CollisionShape2D" parent="Ground"]
 shape = SubResource("WorldBoundaryShape2D_28aoi")
@@ -52,31 +56,42 @@ texture = SubResource("GradientTexture2D_pq8q7")
 [node name="Structures" type="Node2D" parent="."]
 
 [node name="SellBox" parent="Structures" instance=ExtResource("2_28aoi")]
+visible = false
 position = Vector2(-104, -8)
 collision_layer = 0
 
-[node name="Growable" parent="." instance=ExtResource("4_28aoi")]
-position = Vector2(16, -7)
+[node name="Eater" parent="Structures" instance=ExtResource("5_jnlp7")]
+position = Vector2(-60, -8)
+
+[node name="Eater2" parent="Structures" instance=ExtResource("5_jnlp7")]
+position = Vector2(129, -8)
+
+[node name="Plants" type="Node2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(17, -7)
+
+[node name="Growable" parent="Plants" instance=ExtResource("4_28aoi")]
+position = Vector2(-1, 0)
 growth_time = 0.5
 
-[node name="Growable5" parent="." instance=ExtResource("4_28aoi")]
-position = Vector2(-12, -7)
+[node name="Growable5" parent="Plants" instance=ExtResource("4_28aoi")]
+position = Vector2(-29, 0)
 growth_time = 0.5
 growth = 1.0
 
-[node name="Growable6" parent="." instance=ExtResource("4_28aoi")]
-position = Vector2(-23, -7)
+[node name="Growable6" parent="Plants" instance=ExtResource("4_28aoi")]
+position = Vector2(-40, 0)
 growth_time = 0.5
 growth = 1.0
 
-[node name="Growable2" parent="." instance=ExtResource("4_28aoi")]
-position = Vector2(52, -7)
+[node name="Growable2" parent="Plants" instance=ExtResource("4_28aoi")]
+position = Vector2(35, 0)
 
-[node name="Growable4" parent="." instance=ExtResource("4_28aoi")]
-position = Vector2(63, -7)
+[node name="Growable4" parent="Plants" instance=ExtResource("4_28aoi")]
+position = Vector2(46, 0)
 
-[node name="Growable3" parent="." instance=ExtResource("4_28aoi")]
-position = Vector2(97, -7)
+[node name="Growable3" parent="Plants" instance=ExtResource("4_28aoi")]
+position = Vector2(80, 0)
 
 [node name="Trail" type="Line2D" parent="."]
 width = 3.0
@@ -149,3 +164,12 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "0.00"
 label_settings = SubResource("LabelSettings_28aoi")
+
+[node name="Seed" parent="." instance=ExtResource("6_l8v81")]
+position = Vector2(37, -53)
+
+[node name="Seed2" parent="." instance=ExtResource("6_l8v81")]
+position = Vector2(67, -58)
+
+[node name="Seed3" parent="." instance=ExtResource("6_l8v81")]
+position = Vector2(-10, -64)

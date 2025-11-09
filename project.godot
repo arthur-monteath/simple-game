@@ -21,8 +21,13 @@ window/size/viewport_height=180
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
+[global_group]
+
+eatable=""
+
 [layer_names]
 
+2d_physics/layer_2="Seeds"
 2d_physics/layer_4="Bit"
 
 [rendering]
