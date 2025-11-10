@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cuwhrp4t3bu7s"]
+[gd_scene load_steps=15 format=3 uid="uid://cuwhrp4t3bu7s"]
 
 [ext_resource type="Script" uid="uid://d1gluxjec07si" path="res://main.gd" id="1_jnlp7"]
 [ext_resource type="PackedScene" uid="uid://b4sbfufuv43u1" path="res://structures/sell_box.tscn" id="2_28aoi"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dh646mn4hjd10" path="res://growables/growable.tscn" id="4_28aoi"]
 [ext_resource type="PackedScene" uid="uid://cnccj0ngj642u" path="res://eater.tscn" id="5_jnlp7"]
 [ext_resource type="PackedScene" uid="uid://kj0h38f5mo1o" path="res://seed.tscn" id="6_l8v81"]
+[ext_resource type="PackedScene" uid="uid://ckfupye6ihl8o" path="res://structures/tentacle.tscn" id="7_vyht1"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_28aoi"]
 
@@ -173,3 +174,5 @@ position = Vector2(67, -58)
 
 [node name="Seed3" parent="." instance=ExtResource("6_l8v81")]
 position = Vector2(-10, -64)
+
+[node name="Tentacle" parent="." instance=ExtResource("7_vyht1")]
