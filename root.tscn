@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cuwhrp4t3bu7s"]
+[gd_scene load_steps=12 format=3 uid="uid://cuwhrp4t3bu7s"]
 
 [ext_resource type="Script" uid="uid://d1gluxjec07si" path="res://main.gd" id="1_jnlp7"]
 [ext_resource type="PackedScene" uid="uid://b4sbfufuv43u1" path="res://structures/sell_box.tscn" id="2_28aoi"]
@@ -6,19 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://dh646mn4hjd10" path="res://growables/growable.tscn" id="4_28aoi"]
 [ext_resource type="PackedScene" uid="uid://cnccj0ngj642u" path="res://eater.tscn" id="5_jnlp7"]
 [ext_resource type="PackedScene" uid="uid://kj0h38f5mo1o" path="res://seed.tscn" id="6_l8v81"]
-[ext_resource type="PackedScene" uid="uid://ckfupye6ihl8o" path="res://structures/tentacle.tscn" id="7_vyht1"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_28aoi"]
-
-[sub_resource type="Gradient" id="Gradient_vho56"]
-colors = PackedColorArray(0.09411765, 0.09411765, 0.09411765, 1, 0.09411765, 0.09411765, 0.09411765, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_pq8q7"]
-gradient = SubResource("Gradient_vho56")
-width = 320
-height = 180
-fill = 1
-fill_to = Vector2(0.5, 0.5)
 
 [sub_resource type="Curve" id="Curve_jnlp7"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -51,21 +40,14 @@ shape = SubResource("WorldBoundaryShape2D_28aoi")
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 
-[node name="Background" type="Sprite2D" parent="Camera2D"]
-texture = SubResource("GradientTexture2D_pq8q7")
-
 [node name="Structures" type="Node2D" parent="."]
 
 [node name="SellBox" parent="Structures" instance=ExtResource("2_28aoi")]
-visible = false
 position = Vector2(-104, -8)
 collision_layer = 0
 
-[node name="Eater" parent="Structures" instance=ExtResource("5_jnlp7")]
-position = Vector2(-60, -8)
-
-[node name="Eater2" parent="Structures" instance=ExtResource("5_jnlp7")]
-position = Vector2(129, -8)
+[node name="Eater3" parent="Structures" instance=ExtResource("5_jnlp7")]
+position = Vector2(-58, -28)
 
 [node name="Plants" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -174,5 +156,3 @@ position = Vector2(67, -58)
 
 [node name="Seed3" parent="." instance=ExtResource("6_l8v81")]
 position = Vector2(-10, -64)
-
-[node name="Tentacle" parent="." instance=ExtResource("7_vyht1")]

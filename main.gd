@@ -37,10 +37,18 @@ func _raycast(pos: Vector2):
 		ray.global_position = trail.global_position + trail.points[size-2]
 		ray.target_position = trail.points[size-1] - trail.points[size-2]
 		ray.force_raycast_update()
-		if ray.is_colliding():
-			var area: Area2D = ray.get_collider()
+		var colliders_found = []
+		while ray.is_colliding():
+			var collider = ray.get_collider()
+			ray.add_exception(collider)
+			colliders_found.append(collider)
+			ray.force_raycast_update()
+		for collider in colliders_found:
+			var area: Area2D = collider
+			if !area: continue
 			var growable = area.get_parent()
 			if growable.has_method("cut"): growable.cut()
+		ray.clear_exceptions()
 
 var coin := 0
 func add_coin():

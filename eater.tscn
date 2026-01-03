@@ -1,11 +1,34 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnccj0ngj642u"]
+[gd_scene load_steps=10 format=3 uid="uid://cnccj0ngj642u"]
 
 [ext_resource type="Texture2D" uid="uid://ppc1r2cq0yb3" path="res://eater.png" id="1_dkibs"]
 [ext_resource type="Script" uid="uid://3l43kwxmt6re" path="res://eater.gd" id="1_w2d8c"]
 [ext_resource type="PackedScene" uid="uid://ckfupye6ihl8o" path="res://structures/tentacle.tscn" id="3_8rw0p"]
+[ext_resource type="Texture2D" uid="uid://wxtfnw2yl04a" path="res://leg_up1.png" id="4_qjy83"]
+[ext_resource type="Texture2D" uid="uid://b3e6outcwqh8a" path="res://leg_down1.png" id="5_1410b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_28aoi"]
 size = Vector2(16, 16)
+
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_1410b"]
+target_nodepath = NodePath("../../IKTargetLeftLeg")
+flip_bend_direction = true
+joint_one_bone_idx = 0
+joint_one_bone2d_node = NodePath("LegLeftUp")
+joint_two_bone_idx = 1
+joint_two_bone2d_node = NodePath("LegLeftUp/LegLeftDown")
+
+[sub_resource type="SkeletonModification2DTwoBoneIK" id="SkeletonModification2DTwoBoneIK_633ce"]
+target_nodepath = NodePath("../../IKTargetRightLeg")
+joint_one_bone_idx = 2
+joint_one_bone2d_node = NodePath("LegRightUp")
+joint_two_bone_idx = 3
+joint_two_bone2d_node = NodePath("LegRightUp/LegRightDown")
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_633ce"]
+enabled = true
+modification_count = 2
+modifications/0 = SubResource("SkeletonModification2DTwoBoneIK_1410b")
+modifications/1 = SubResource("SkeletonModification2DTwoBoneIK_633ce")
 
 [node name="Eater" type="Area2D"]
 collision_mask = 8
@@ -31,5 +54,103 @@ shape = SubResource("RectangleShape2D_28aoi")
 
 [node name="EatingTimer" type="Timer" parent="."]
 unique_name_in_owner = true
+
+[node name="Body" type="Node2D" parent="."]
+
+[node name="LegLeftUp" type="Sprite2D" parent="Body"]
+position = Vector2(-7, 7)
+rotation = 1.1835265
+scale = Vector2(0.9999423, 0.9999423)
+texture = ExtResource("4_qjy83")
+centered = false
+offset = Vector2(-3, -2)
+
+[node name="LegLeftDown" type="Sprite2D" parent="Body/LegLeftUp"]
+position = Vector2(-1.0609086, 16.966722)
+rotation = -1.0883406
+scale = Vector2(0.9999546, 0.9999546)
+texture = ExtResource("5_1410b")
+centered = false
+offset = Vector2(-1.110939, -18.580782)
+
+[node name="LegRightUp" type="Sprite2D" parent="Body"]
+position = Vector2(6.999999, 7)
+rotation = -1.0254328
+scale = Vector2(0.99992436, 0.99992436)
+texture = ExtResource("4_qjy83")
+centered = false
+offset = Vector2(-2.7982135, -2.1448345)
+flip_h = true
+
+[node name="LegRightDown" type="Sprite2D" parent="Body/LegRightUp"]
+position = Vector2(1.3099215, 16.564812)
+rotation = 1.0634677
+scale = Vector2(0.99995023, 0.99995023)
+texture = ExtResource("5_1410b")
+centered = false
+offset = Vector2(-4.4057217, -18.61036)
+flip_h = true
+
+[node name="Bones" type="Node2D" parent="."]
+
+[node name="Skeleton2D" type="Skeleton2D" parent="Bones"]
+modification_stack = SubResource("SkeletonModificationStack2D_633ce")
+
+[node name="LegLeftUp" type="Bone2D" parent="Bones/Skeleton2D"]
+position = Vector2(-7, 7)
+rest = Transform2D(1, 0, 0, 1, -7, 7)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 104.99997
+metadata/_local_pose_override_enabled_ = true
+
+[node name="LegLeftDown" type="Bone2D" parent="Bones/Skeleton2D/LegLeftUp"]
+position = Vector2(-1.5, 16.5)
+rest = Transform2D(1, 0, 0, 1, -1.5, 16.5)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 84.99998
+metadata/_local_pose_override_enabled_ = true
+
+[node name="RemoteTransform2D2" type="RemoteTransform2D" parent="Bones/Skeleton2D/LegLeftUp/LegLeftDown"]
+position = Vector2(-0.20974064, 0.605539)
+remote_path = NodePath("../../../../../Body/LegLeftUp/LegLeftDown")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Bones/Skeleton2D/LegLeftUp"]
+remote_path = NodePath("../../../../Body/LegLeftUp")
+
+[node name="LegRightUp" type="Bone2D" parent="Bones/Skeleton2D"]
+position = Vector2(6.999999, 7)
+rotation = 1.3445678
+scale = Vector2(0.9999581, 0.9999581)
+rest = Transform2D(1, 0, 0, 1, -7, 7)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 104.99996
+metadata/_local_pose_override_enabled_ = true
+
+[node name="LegRightDown" type="Bone2D" parent="Bones/Skeleton2D/LegRightUp"]
+position = Vector2(-1.5, 16.5)
+rotation = -0.4081353
+scale = Vector2(0.99996865, 0.99996865)
+rest = Transform2D(1, 0, 0, 1, -1.5, 16.5)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 84.99997
+metadata/_local_pose_override_enabled_ = true
+
+[node name="RemoteTransform2D2" type="RemoteTransform2D" parent="Bones/Skeleton2D/LegRightUp/LegRightDown"]
+position = Vector2(-0.20974064, 0.605539)
+remote_path = NodePath("../../../../../Body/LegRightUp/LegRightDown")
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Bones/Skeleton2D/LegRightUp"]
+rotation = 0.20808655
+remote_path = NodePath("../../../../Body/LegRightUp")
+
+[node name="IKTargetLeftLeg" type="Marker2D" parent="."]
+position = Vector2(-23, 25)
+
+[node name="IKTargetRightLeg" type="Marker2D" parent="."]
+position = Vector2(21, 32)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
